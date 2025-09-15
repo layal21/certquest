@@ -1,8 +1,10 @@
-const { pathsToModuleNameMapper } = require('ts-jest');
+import { pathsToModuleNameMapper } from 'ts-jest';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 const { compilerOptions } = require('./tsconfig.json');
 
-module.exports = {
-  preset: 'ts-jest',
+export default {
+  preset: 'ts-jest/presets/default-esm',
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/__tests__/setup.ts'],
   testMatch: [
@@ -18,7 +20,7 @@ module.exports = {
     '!**/__tests__/**',
     '!**/coverage/**',
   ],
-  moduleNameMapping: pathsToModuleNameMapper(compilerOptions.paths, {
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
     prefix: '<rootDir>/',
   }),
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
@@ -27,19 +29,13 @@ module.exports = {
       tsconfig: {
         jsx: 'react-jsx',
       },
+      useESM: true,
     }],
   },
   transformIgnorePatterns: [
     'node_modules/(?!(.*\\.mjs$|@tanstack/react-query|wouter))',
   ],
-  testEnvironmentOptions: {
-    customExportConditions: [''],
-  },
-  globals: {
-    'ts-jest': {
-      useESM: true,
-    },
-  },
+  maxWorkers: '50%',
   extensionsToTreatAsEsm: ['.ts', '.tsx'],
   coverageReporters: ['text', 'lcov', 'html'],
   coverageDirectory: 'coverage',

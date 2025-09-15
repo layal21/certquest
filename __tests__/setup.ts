@@ -1,15 +1,21 @@
 import '@testing-library/jest-dom';
 import { TextEncoder, TextDecoder } from 'util';
-import { fetch, Headers, Request, Response } from 'node-fetch';
 
-// Polyfills for Node.js environment
-Object.assign(global, {
-  TextEncoder,
-  TextDecoder,
-  fetch,
-  Headers,
-  Request,
-  Response,
+// Polyfills for Node.js environment - use Node 20's built-in fetch
+const g = globalThis as any;
+Object.assign(global, { 
+  TextEncoder, 
+  TextDecoder, 
+  fetch: g.fetch, 
+  Headers: g.Headers, 
+  Request: g.Request, 
+  Response: g.Response 
+});
+Object.assign(window as any, { 
+  fetch: g.fetch, 
+  Headers: g.Headers, 
+  Request: g.Request, 
+  Response: g.Response 
 });
 
 // Mock window.matchMedia
@@ -100,8 +106,7 @@ jest.mock('next-themes', () => ({
 
 // Mock environment variables
 process.env.NODE_ENV = 'test';
-process.env.VITE_SUPABASE_URL = 'http://localhost:3000';
-process.env.VITE_SUPABASE_ANON_KEY = 'test-key';
+process.env.JWT_SECRET = 'test-jwt-secret-key-for-testing';
 
 // Global test timeout
 jest.setTimeout(30000);
