@@ -1,49 +1,34 @@
-import { createClient } from '@supabase/supabase-js';
+// This file is kept for backward compatibility but all authentication
+// now goes through our backend API instead of Supabase directly.
+// The AuthContext in /context/auth-context.tsx handles all authentication.
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'http://localhost:3000';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'fallback-key';
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-  auth: {
-    persistSession: true,
-    autoRefreshToken: true,
-  }
-});
-
-// Auth helpers
+// Placeholder functions to prevent import errors
 export const signUp = async (email: string, password: string, firstName: string, lastName: string) => {
-  return await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      data: {
-        firstName,
-        lastName,
-      }
-    }
-  });
+  console.warn('signUp: Use AuthContext login/register methods instead');
+  return { data: null, error: { message: 'Use AuthContext instead' } };
 };
 
 export const signIn = async (email: string, password: string) => {
-  return await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
+  console.warn('signIn: Use AuthContext login method instead');
+  return { data: null, error: { message: 'Use AuthContext instead' } };
 };
 
 export const signOut = async () => {
-  return await supabase.auth.signOut();
+  console.warn('signOut: Use AuthContext logout method instead');
+  return { error: null };
 };
 
 export const getCurrentUser = async () => {
-  const { data: { user } } = await supabase.auth.getUser();
-  return user;
+  console.warn('getCurrentUser: Use AuthContext user state instead');
+  return null;
 };
 
 export const resetPassword = async (email: string) => {
-  return await supabase.auth.resetPasswordForEmail(email);
+  console.warn('resetPassword: Use AuthContext resetPassword method instead');
+  return { data: null, error: { message: 'Use AuthContext instead' } };
 };
 
 export const updatePassword = async (password: string) => {
-  return await supabase.auth.updateUser({ password });
+  console.warn('updatePassword: Use backend API instead');
+  return { data: null, error: { message: 'Use backend API instead' } };
 };

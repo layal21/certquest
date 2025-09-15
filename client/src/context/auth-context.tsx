@@ -148,11 +148,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const resetPassword = async (email: string): Promise<boolean> => {
     try {
+      const headers = await addCSRFToken({
+        'Content-Type': 'application/json',
+      });
+
       const response = await fetch('/api/auth/reset-password', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers,
         body: JSON.stringify({ email }),
       });
 
