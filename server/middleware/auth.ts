@@ -25,7 +25,14 @@ export const authenticateToken = async (
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fallback-secret') as any;
+    const secret = process.env.JWT_SECRET;
+    if (!secret) {
+      return res.status(500).json({ 
+        message: 'Server configuration error',
+        code: 'CONFIG_ERROR'
+      });
+    }
+    const decoded = jwt.verify(token, secret) as any;
     const user = await storage.getUser(decoded.userId);
     
     if (!user) {
@@ -59,7 +66,14 @@ export const optionalAuth = async (
 
   if (token) {
     try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fallback-secret') as any;
+      const secret = process.env.JWT_SECRET;
+    if (!secret) {
+      return res.status(500).json({ 
+        message: 'Server configuration error',
+        code: 'CONFIG_ERROR'
+      });
+    }
+    const decoded = jwt.verify(token, secret) as any;
       const user = await storage.getUser(decoded.userId);
       
       if (user) {

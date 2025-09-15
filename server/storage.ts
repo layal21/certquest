@@ -50,7 +50,24 @@ export class DatabaseStorage implements IStorage {
     if (!process.env.DATABASE_URL) {
       throw new Error('DATABASE_URL is required');
     }
-    const sql = neon(process.env.DATABASE_URL);
+    
+    // Handle URL encoding for special characters in the database URL
+    const dbUrl = process.env.DATABASE_URL;
+    let validDbUrl = dbUrl;
+    
+    // Fix common special characters in password that break URL parsing
+    if (dbUrl.includes('#') && !dbUrl.includes('%23')) {
+      // Replace # with %23 in the password portion only
+      const match = dbUrl.match(/^(postgresql:\/\/[^:]+:)([^@]+)(@.+)$/);
+      if (match) {
+        const [, prefix, password, suffix] = match;
+        const encodedPassword = password.replace(/#/g, '%23').replace(/!/g, '%21');
+        validDbUrl = prefix + encodedPassword + suffix;
+        console.log('Fixed DATABASE_URL encoding for special characters');
+      }
+    }
+    
+    const sql = neon(validDbUrl);
     this.db = drizzle(sql);
   }
 
