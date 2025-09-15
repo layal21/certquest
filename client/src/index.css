@@ -90,15 +90,18 @@
   }
 
   .quiz-option.selected {
-    @apply border-primary bg-primary/5;
+    @apply border-primary;
+    background-color: hsl(var(--primary) / 0.05);
   }
 
   .quiz-option.correct {
-    @apply border-success bg-success/10;
+    @apply border-success;
+    background-color: hsl(var(--success) / 0.1);
   }
 
   .quiz-option.incorrect {
-    @apply border-destructive bg-destructive/10;
+    @apply border-destructive;
+    background-color: hsl(var(--destructive) / 0.1);
   }
 
   .fade-in {
@@ -176,9 +179,10 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-muted-foreground/30 rounded-full;
+  @apply rounded-full;
+  background-color: hsl(var(--muted-foreground) / 0.3);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-muted-foreground/50;
+  background-color: hsl(var(--muted-foreground) / 0.5);
 }
