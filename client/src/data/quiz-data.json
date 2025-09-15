@@ -1,0 +1,264 @@
+{
+  "certifications": [
+    {
+      "id": "aws-cloud-practitioner",
+      "name": "AWS Cloud Practitioner",
+      "topics": [
+        {
+          "id": "global-infrastructure",
+          "name": "AWS Global Infrastructure",
+          "description": "Understanding AWS Regions, Availability Zones, and Edge Locations",
+          "questions": [
+            {
+              "id": 1,
+              "question": "A company needs to deploy their application across multiple isolated locations within the same geographic area for high availability. Which AWS infrastructure component should they use?",
+              "options": [
+                "AWS Regions",
+                "Availability Zones", 
+                "Edge Locations",
+                "Data Centers"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Availability Zones are isolated locations within a Region that are connected through low-latency, high-bandwidth networking. They provide fault tolerance and high availability within the same geographic area."
+            },
+            {
+              "id": 2,
+              "question": "What is the primary purpose of AWS Edge Locations?",
+              "options": [
+                "Host EC2 instances closer to users",
+                "Store backup data for disaster recovery", 
+                "Cache content closer to end users for faster delivery",
+                "Provide additional compute capacity during peak times"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Edge Locations are part of AWS CloudFront's content delivery network (CDN) that cache content closer to end users to reduce latency and improve performance for content delivery."
+            },
+            {
+              "id": 3,
+              "question": "How many Availability Zones does each AWS Region typically contain?",
+              "options": [
+                "At least 1",
+                "At least 2", 
+                "At least 3",
+                "Exactly 5"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Each AWS Region consists of a minimum of three Availability Zones, with some regions having more. This ensures high availability and fault tolerance across multiple isolated locations."
+            },
+            {
+              "id": 4,
+              "question": "A company in Europe wants to ensure their data never leaves the European Union due to compliance requirements. Which AWS feature helps them achieve this?",
+              "options": [
+                "Availability Zone isolation",
+                "Data sovereignty by Region", 
+                "Edge Location caching",
+                "Global infrastructure replication"
+              ],
+              "correctAnswer": 1,
+              "explanation": "AWS Regions are completely independent, and data doesn't move between Regions unless you explicitly configure it. Choosing EU regions ensures data sovereignty and compliance with regional regulations."
+            },
+            {
+              "id": 5,
+              "question": "What is the relationship between AWS Regions and Availability Zones?",
+              "options": [
+                "Regions contain multiple Availability Zones",
+                "Availability Zones contain multiple Regions", 
+                "They are the same thing with different names",
+                "Regions and Availability Zones are completely separate"
+              ],
+              "correctAnswer": 0,
+              "explanation": "AWS Regions are geographic areas that contain multiple Availability Zones. Each Availability Zone consists of one or more data centers with independent power, cooling, and networking."
+            },
+            {
+              "id": 6,
+              "question": "Which factor should be the PRIMARY consideration when selecting an AWS Region for your application?",
+              "options": [
+                "Number of Availability Zones",
+                "Proximity to your users", 
+                "Number of Edge Locations",
+                "Age of the Region"
+              ],
+              "correctAnswer": 1,
+              "explanation": "The primary factor should be proximity to your users to minimize latency. Other factors like compliance requirements, available services, and pricing should also be considered."
+            },
+            {
+              "id": 7,
+              "question": "What happens to your data if an entire Availability Zone becomes unavailable?",
+              "options": [
+                "All data in that AZ is permanently lost",
+                "Data is automatically moved to another AZ", 
+                "Data remains available if properly distributed across AZs",
+                "AWS automatically restores the AZ within 1 hour"
+              ],
+              "correctAnswer": 2,
+              "explanation": "If you've architected your application to use multiple Availability Zones (e.g., with Multi-AZ RDS, ELB across AZs), your data and application remain available even if one AZ becomes unavailable."
+            },
+            {
+              "id": 8,
+              "question": "Which AWS Global Infrastructure component is best suited for applications requiring single-digit millisecond latency?",
+              "options": [
+                "AWS Regions",
+                "Availability Zones", 
+                "AWS Local Zones",
+                "Edge Locations"
+              ],
+              "correctAnswer": 2,
+              "explanation": "AWS Local Zones place compute, storage, and database services closer to large population centers for applications that require single-digit millisecond latency, such as real-time gaming or live video streaming."
+            },
+            {
+              "id": 9,
+              "question": "How are Availability Zones connected within a Region?",
+              "options": [
+                "Public internet connections",
+                "Dedicated fiber optic cables", 
+                "Satellite links",
+                "Wireless connections"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Availability Zones within a Region are connected via high-speed, low-latency dedicated fiber optic networking, providing fast and reliable communication between AZs."
+            },
+            {
+              "id": 10,
+              "question": "A startup wants to deploy their web application with the lowest possible latency for users worldwide. Which combination of AWS infrastructure should they use?",
+              "options": [
+                "Single Region with multiple AZs",
+                "Multiple Regions with CloudFront", 
+                "Single AZ with Edge Locations",
+                "AWS Local Zones only"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Deploying in multiple Regions ensures global coverage, while CloudFront (using Edge Locations) caches content closer to users worldwide, providing the lowest possible latency for a global audience."
+            }
+          ]
+        },
+        {
+          "id": "iam",
+          "name": "Identity and Access Management (IAM)",
+          "description": "Managing users, groups, roles, and permissions in AWS",
+          "questions": [
+            {
+              "id": 1,
+              "question": "What is the AWS security principle that suggests giving users only the permissions they need to perform their job functions?",
+              "options": [
+                "Defense in depth",
+                "Least privilege", 
+                "Zero trust",
+                "Shared responsibility"
+              ],
+              "correctAnswer": 1,
+              "explanation": "The principle of least privilege means granting users only the minimum permissions necessary to perform their job functions, reducing the potential impact of compromised credentials."
+            },
+            {
+              "id": 2,
+              "question": "Which IAM entity should be used for applications running on EC2 instances to access other AWS services securely?",
+              "options": [
+                "IAM User with access keys",
+                "Root user credentials", 
+                "IAM Role",
+                "IAM Group"
+              ],
+              "correctAnswer": 2,
+              "explanation": "IAM Roles should be used for applications running on EC2 instances. Roles provide temporary credentials that are automatically rotated, eliminating the need to store long-term access keys on the instance."
+            },
+            {
+              "id": 3,
+              "question": "What happens when you first create an AWS account?",
+              "options": [
+                "A default IAM user is created",
+                "No users exist initially", 
+                "A root user is created with full administrative access",
+                "Multiple admin users are created automatically"
+              ],
+              "correctAnswer": 2,
+              "explanation": "When you create an AWS account, a root user is automatically created with complete administrative access to all AWS services and resources. It's recommended to secure this account and create IAM users for day-to-day activities."
+            },
+            {
+              "id": 4,
+              "question": "Which statement about IAM policies is correct?",
+              "options": [
+                "Allow statements always override deny statements",
+                "Deny statements always override allow statements", 
+                "The first statement in the policy takes precedence",
+                "Conflicting statements cancel each other out"
+              ],
+              "correctAnswer": 1,
+              "explanation": "In IAM, explicit deny statements always override allow statements. This means if there's any policy that denies an action, that action will be denied regardless of any allow statements."
+            },
+            {
+              "id": 5,
+              "question": "A company wants to allow their developers to access only S3 buckets that start with 'dev-'. What type of IAM policy element would help achieve this?",
+              "options": [
+                "Effect",
+                "Principal", 
+                "Condition",
+                "Version"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Condition elements in IAM policies allow you to specify when a policy is in effect. You can use conditions with string matching to allow access only to S3 buckets with specific prefixes like 'dev-'."
+            },
+            {
+              "id": 6,
+              "question": "What is the primary difference between IAM roles and IAM users?",
+              "options": [
+                "Roles are for humans, users are for applications",
+                "Roles provide temporary credentials, users have permanent credentials", 
+                "Roles are more secure than users",
+                "There is no practical difference"
+              ],
+              "correctAnswer": 1,
+              "explanation": "IAM roles provide temporary security credentials that are automatically rotated, while IAM users have permanent credentials (like access keys). Roles are typically used by applications, services, or for cross-account access."
+            },
+            {
+              "id": 7,
+              "question": "Which of the following is NOT a best practice for the AWS root user account?",
+              "options": [
+                "Enable MFA (Multi-Factor Authentication)",
+                "Use it for daily administrative tasks", 
+                "Create a strong password",
+                "Limit its usage to account-level tasks only"
+              ],
+              "correctAnswer": 1,
+              "explanation": "The root user should NOT be used for daily administrative tasks. Best practices include securing it with MFA, using it only for account-level tasks, and creating IAM users for day-to-day operations."
+            },
+            {
+              "id": 8,
+              "question": "A new employee needs the same permissions as existing developers. What is the most efficient way to grant these permissions?",
+              "options": [
+                "Copy and paste policies from another developer",
+                "Create a custom policy for the new employee", 
+                "Add the employee to the existing developers IAM group",
+                "Use the root user to perform their tasks"
+              ],
+              "correctAnswer": 2,
+              "explanation": "IAM groups allow you to manage permissions for multiple users collectively. Adding the new employee to the existing developers group automatically grants them the same permissions as other group members."
+            },
+            {
+              "id": 9,
+              "question": "What does MFA (Multi-Factor Authentication) add to AWS security?",
+              "options": [
+                "Stronger password requirements",
+                "An additional layer of authentication beyond passwords", 
+                "Automatic password rotation",
+                "Biometric authentication only"
+              ],
+              "correctAnswer": 1,
+              "explanation": "MFA adds an extra layer of security by requiring a second form of authentication (like a code from a mobile app or hardware token) in addition to the password, significantly reducing the risk of unauthorized access."
+            },
+            {
+              "id": 10,
+              "question": "Which scenario would require cross-account IAM role access?",
+              "options": [
+                "An EC2 instance needs to access S3 in the same account",
+                "A user needs temporary elevated permissions", 
+                "An application in Account A needs to access resources in Account B",
+                "Multiple users need the same permissions"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Cross-account roles are used when resources in one AWS account need to access resources in a different AWS account. The role in Account B can be assumed by entities in Account A with appropriate permissions."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
