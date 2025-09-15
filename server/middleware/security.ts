@@ -3,6 +3,14 @@ import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 import DOMPurify from 'dompurify';
 import { JSDOM } from 'jsdom';
+import { randomBytes } from 'crypto';
+
+// Extend session type to include csrfToken
+declare module 'express-session' {
+  interface SessionData {
+    csrfToken?: string;
+  }
+}
 
 const window = new JSDOM('').window;
 const purify = DOMPurify(window);
@@ -50,7 +58,7 @@ export const helmetConfig = helmet({
       fontSrc: ["'self'", "https://fonts.gstatic.com"],
       scriptSrc: ["'self'"],
       imgSrc: ["'self'", "data:", "https:"],
-      connectSrc: ["'self'", process.env.SUPABASE_URL || ""],
+      connectSrc: ["'self'", ...(process.env.NODE_ENV === 'development' ? ["ws:", "wss:"] : [])],
       frameSrc: ["'none'"],
       objectSrc: ["'none'"],
       baseUri: ["'self'"],
@@ -116,7 +124,7 @@ export const csrfProtection = (req: Request, res: Response, next: NextFunction) 
 
 // Generate CSRF token
 export const generateCSRFToken = (req: Request, res: Response) => {
-  const token = Math.random().toString(36).substring(2);
+  const token = randomBytes(32).toString('hex');
   if (req.session) {
     req.session.csrfToken = token;
   }
